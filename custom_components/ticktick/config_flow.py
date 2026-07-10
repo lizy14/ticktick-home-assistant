@@ -26,11 +26,15 @@ class OAuth2FlowHandler(
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> OptionsFlow:
         """Return the options flow."""
-        return OptionsFlowHandler()
+        return OptionsFlowHandler(config_entry)
 
 
 class OptionsFlowHandler(OptionsFlow):
     """Handle TickTick options."""
+
+    def __init__(self, config_entry: ConfigEntry) -> None:
+        """Initialize the options flow."""
+        self._config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
         """Manage the TickTick options."""
@@ -43,7 +47,7 @@ class OptionsFlowHandler(OptionsFlow):
                 {
                     vol.Required(
                         CONF_API_ENDPOINT,
-                        default=self.config_entry.options.get(
+                        default=self._config_entry.options.get(
                             CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT
                         ),
                     ): str,
