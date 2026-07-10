@@ -10,7 +10,11 @@ from .const import DEFAULT_REGION, REGIONS
 class RegionalOAuth2Implementation(
     config_entry_oauth2_flow.LocalOAuth2Implementation
 ):
-    """OAuth implementation using the endpoints for a selected region."""
+    """OAuth implementation using the endpoints for a selected region.
+
+    The application credentials platform provides the client credentials, while
+    this wrapper selects the matching authorize and token endpoints.
+    """
 
     def __init__(
         self,
