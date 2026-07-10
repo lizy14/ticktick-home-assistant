@@ -61,7 +61,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: TickTickConfigEntry) -> 
         access_token, aiohttp_session, api_base_url
     )
 
-    await register_coordiantor(hass, tickTickApiClient, entry, access_token)
+    await register_coordinator(hass, tickTickApiClient, entry, access_token)
     await register_services(hass, tickTickApiClient)
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
@@ -77,7 +77,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: TickTickConfigEntry) ->
     return unload_ok
 
 
-async def register_coordiantor(
+async def register_coordinator(
     hass: HomeAssistant,
     tickTickApiClient: TickTickAPIClient,
     entry: TickTickConfigEntry,
