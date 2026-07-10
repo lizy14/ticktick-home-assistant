@@ -9,7 +9,15 @@ from homeassistant.helpers import config_entry_oauth2_flow
 
 from .const import CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT, DOMAIN
 
-API_ENDPOINT_SCHEMA = vol.All(vol.Url(), vol.Match(r"^https://"))
+
+def _validate_api_endpoint(value: str) -> str:
+    """Validate that an API endpoint uses HTTPS."""
+    if not value.startswith("https://"):
+        raise vol.Invalid("API endpoint must use HTTPS")
+    return value
+
+
+API_ENDPOINT_SCHEMA = vol.All(vol.Url(), _validate_api_endpoint)
 
 
 class OAuth2FlowHandler(
