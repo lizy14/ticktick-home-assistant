@@ -31,6 +31,10 @@ class TickTickAPIClient:
         self._session = session
         self._api_endpoint = api_endpoint.rstrip("/")
 
+    def _url(self, path: str) -> str:
+        """Build a URL from the configured endpoint and API path."""
+        return f"{self._api_endpoint}/{path.lstrip('/')}"
+
     # === Task Scope ===
     async def get_task(
         self, projectId: str, taskId: str, returnAsJson: bool = False
@@ -95,14 +99,14 @@ class TickTickAPIClient:
 
     async def _get(self, url: str) -> ClientResponse:
         response = await self._session.get(
-            f"{self._api_endpoint}/{url}", headers=self._headers
+            self._url(url), headers=self._headers
         )
         return await self._get_response(response)
 
     async def _post(self, url: str, json_body: str | None = None) -> ClientResponse:
         self._headers["Content-Type"] = "application/json"
         response = await self._session.post(
-            f"{self._api_endpoint}/{url}",
+            self._url(url),
             headers=self._headers,
             data=json_body if json_body else None,
         )
@@ -110,7 +114,7 @@ class TickTickAPIClient:
 
     async def _delete(self, url: str) -> ClientResponse:
         response = await self._session.delete(
-            f"{self._api_endpoint}/{url}", headers=self._headers
+            self._url(url), headers=self._headers
         )
         return await self._get_response(response)
 

@@ -9,7 +9,7 @@ from homeassistant.helpers import config_entry_oauth2_flow
 
 from .const import CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT, DOMAIN
 
-API_ENDPOINT_SCHEMA = vol.All(vol.Url(), vol.Match(r"^https?://"))
+API_ENDPOINT_SCHEMA = vol.All(vol.Url(), vol.Match(r"^https://"))
 
 
 class OAuth2FlowHandler(
