@@ -2,11 +2,26 @@
 
 DOMAIN = "ticktick"
 
-OAUTH2_AUTHORIZE = "https://ticktick.com/oauth/authorize"
-OAUTH2_TOKEN = "https://ticktick.com/oauth/token"
-DEFAULT_API_ENDPOINT = "https://api.ticktick.com"
-API = "open/v1"
-CONF_API_ENDPOINT = "api_endpoint"
+CONF_REGION = "region"
+REGION_TICKTICK = "ticktick"
+REGION_DIDA365 = "dida365"
+
+REGIONS = {
+    REGION_TICKTICK: {
+        "name": "TickTick",
+        "authorize_url": "https://ticktick.com/oauth/authorize",
+        "token_url": "https://ticktick.com/oauth/token",
+        "api_base_url": "https://api.ticktick.com/open/v1",
+    },
+    REGION_DIDA365: {
+        "name": "Dida365",
+        "authorize_url": "https://dida365.com/oauth/authorize",
+        "token_url": "https://dida365.com/oauth/token",
+        "api_base_url": "https://api.dida365.com/open/v1",
+    },
+}
+DEFAULT_REGION = REGION_TICKTICK
+API = ""
 
 # === Parameters === #
 PROJECT_ID = "projectId"
@@ -15,12 +30,12 @@ TASK_ID = "taskId"
 # === Endpoints === #
 
 # === Task Scope ===
-GET_TASK = f"{API}/project/{{{PROJECT_ID}}}/task/{{{TASK_ID}}}"
-CREATE_TASK = f"{API}/task"
-UPDATE_TASK = f"{API}/task/{{{TASK_ID}}}"
-COMPLETE_TASK = f"{API}/project/{{{PROJECT_ID}}}/task/{{{TASK_ID}}}/complete"
+GET_TASK = f"project/{{{PROJECT_ID}}}/task/{{{TASK_ID}}}"
+CREATE_TASK = "task"
+UPDATE_TASK = f"task/{{{TASK_ID}}}"
+COMPLETE_TASK = f"project/{{{PROJECT_ID}}}/task/{{{TASK_ID}}}/complete"
 DELETE_TASK = GET_TASK
 
 # === Project Scope ===
-GET_PROJECTS = f"{API}/project"
-GET_PROJECTS_WITH_TASKS = f"{API}/project/{{{PROJECT_ID}}}/data"
+GET_PROJECTS = "project"
+GET_PROJECTS_WITH_TASKS = f"project/{{{PROJECT_ID}}}/data"

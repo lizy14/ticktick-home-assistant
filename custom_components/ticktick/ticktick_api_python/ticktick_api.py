@@ -1,7 +1,7 @@
 """TickTick API Client."""
 
 from aiohttp import ClientResponse, ClientSession
-from custom_components.ticktick.const import (
+from ..const import (
     COMPLETE_TASK,
     CREATE_TASK,
     DELETE_TASK,
@@ -9,7 +9,6 @@ from custom_components.ticktick.const import (
     GET_PROJECTS_WITH_TASKS,
     GET_TASK,
     UPDATE_TASK,
-    DEFAULT_API_ENDPOINT,
 )
 
 from .models.project import Kind, Project
@@ -24,16 +23,16 @@ class TickTickAPIClient:
         self,
         access_token: str,
         session: ClientSession,
-        api_endpoint: str = DEFAULT_API_ENDPOINT,
+        api_base_url: str,
     ) -> None:
         """Initialize the TickTick API client."""
         self._headers = {"Authorization": f"Bearer {access_token}"}
         self._session = session
-        self._api_endpoint = api_endpoint.rstrip("/")
+        self._api_base_url = api_base_url.rstrip("/")
 
     def _url(self, path: str) -> str:
         """Build a URL from the configured endpoint and API path."""
-        return f"{self._api_endpoint}/{path.lstrip('/')}"
+        return f"{self._api_base_url}/{path.lstrip('/')}"
 
     # === Task Scope ===
     async def get_task(

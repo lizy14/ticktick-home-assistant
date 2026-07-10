@@ -12,7 +12,8 @@ from homeassistant.core import HomeAssistant, SupportsResponse
 from homeassistant.helpers import aiohttp_client
 
 from . import api
-from .const import CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT, DOMAIN
+from .application_credentials import regionalize_implementation
+from .const import CONF_REGION, DEFAULT_REGION, DOMAIN, REGIONS
 from .coordinator import TickTickCoordinator
 from .service_handlers import (
     handle_complete_task,
@@ -45,6 +46,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: TickTickConfigEntry) -> 
             hass, entry
         )
     )
+    region = entry.data.get(CONF_REGION, DEFAULT_REGION)
+    implementation = regionalize_implementation(hass, implementation, region)
 
     session = config_entry_oauth2_flow.OAuth2Session(hass, entry, implementation)
 
@@ -53,9 +56,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: TickTickConfigEntry) -> 
     entry.runtime_data = api.AsyncConfigEntryAuth(aiohttp_session, session)
     access_token = await entry.runtime_data.async_get_access_token()
 
-    api_endpoint = entry.options.get(CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT)
+    api_base_url = REGIONS.get(region, REGIONS[DEFAULT_REGION])["api_base_url"]
     tickTickApiClient = TickTickAPIClient(
-        access_token, aiohttp_session, api_endpoint
+        access_token, aiohttp_session, api_base_url
     )
 
     await register_coordiantor(hass, tickTickApiClient, entry, access_token)

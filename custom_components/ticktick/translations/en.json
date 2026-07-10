@@ -15,23 +15,12 @@
         "create_entry": {
             "default": "Successfully authenticated"
         },
-        "options": {
-            "step": {
-                "init": {
-                    "title": "API endpoint",
-                    "description": "Configure the TickTick-compatible API endpoint.",
-                    "data": {
-                        "api_endpoint": "API endpoint"
-                    }
-                }
-            }
-        },
         "step": {
             "user": {
-                "title": "API endpoint",
-                "description": "Configure the TickTick-compatible API endpoint.",
+                "title": "Service",
+                "description": "Select TickTick or Dida365. Developer credentials are specific to each service and cannot be shared.",
                 "data": {
-                    "api_endpoint": "API endpoint"
+                    "region": "Service"
                 }
             },
             "pick_implementation": {
