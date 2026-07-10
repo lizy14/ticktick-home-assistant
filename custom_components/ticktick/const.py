@@ -6,7 +6,7 @@ OAUTH2_AUTHORIZE = "https://ticktick.com/oauth/authorize"
 OAUTH2_TOKEN = "https://ticktick.com/oauth/token"
 DEFAULT_API_ENDPOINT = "https://api.ticktick.com"
 API = "open/v1"
-BASE_API_URL = f"{API}"
+BASE_API_URL = API
 CONF_API_ENDPOINT = "api_endpoint"
 
 # === Parameters === #

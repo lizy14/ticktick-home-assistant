@@ -9,6 +9,7 @@ from custom_components.ticktick.const import (
     GET_PROJECTS_WITH_TASKS,
     GET_TASK,
     UPDATE_TASK,
+    DEFAULT_API_ENDPOINT,
 )
 
 from .models.project import Kind, Project
@@ -20,7 +21,10 @@ class TickTickAPIClient:
     """TickTick API Client."""
 
     def __init__(
-        self, access_token: str, session: ClientSession, api_endpoint: str
+        self,
+        access_token: str,
+        session: ClientSession,
+        api_endpoint: str = DEFAULT_API_ENDPOINT,
     ) -> None:
         """Initialize the TickTick API client."""
         self._headers = {"Authorization": f"Bearer {access_token}"}
