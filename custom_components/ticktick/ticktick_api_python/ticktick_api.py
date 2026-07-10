@@ -19,10 +19,13 @@ from .models.task import Task
 class TickTickAPIClient:
     """TickTick API Client."""
 
-    def __init__(self, access_token: str, session: ClientSession) -> None:
+    def __init__(
+        self, access_token: str, session: ClientSession, api_endpoint: str
+    ) -> None:
         """Initialize the TickTick API client."""
         self._headers = {"Authorization": f"Bearer {access_token}"}
         self._session = session
+        self._api_endpoint = api_endpoint.rstrip("/")
 
     # === Task Scope ===
     async def get_task(
@@ -87,20 +90,24 @@ class TickTickAPIClient:
         return ProjectWithTasks.from_dict(response)
 
     async def _get(self, url: str) -> ClientResponse:
-        response = await self._session.get(f"https://{url}", headers=self._headers)
+        response = await self._session.get(
+            f"{self._api_endpoint}/{url}", headers=self._headers
+        )
         return await self._get_response(response)
 
     async def _post(self, url: str, json_body: str | None = None) -> ClientResponse:
         self._headers["Content-Type"] = "application/json"
         response = await self._session.post(
-            f"https://{url}",
+            f"{self._api_endpoint}/{url}",
             headers=self._headers,
             data=json_body if json_body else None,
         )
         return await self._get_response(response)
 
     async def _delete(self, url: str) -> ClientResponse:
-        response = await self._session.delete(f"https://{url}", headers=self._headers)
+        response = await self._session.delete(
+            f"{self._api_endpoint}/{url}", headers=self._headers
+        )
         return await self._get_response(response)
 
     async def _get_response(

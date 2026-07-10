@@ -4,9 +4,10 @@ DOMAIN = "ticktick"
 
 OAUTH2_AUTHORIZE = "https://ticktick.com/oauth/authorize"
 OAUTH2_TOKEN = "https://ticktick.com/oauth/token"
-TICKTICK_HOST = "api.ticktick.com"
+DEFAULT_API_ENDPOINT = "https://api.ticktick.com"
 API = "open/v1"
-BASE_API_URL = f"{TICKTICK_HOST}/{API}"
+BASE_API_URL = f"{API}"
+CONF_API_ENDPOINT = "api_endpoint"
 
 # === Parameters === #
 PROJECT_ID = "projectId"

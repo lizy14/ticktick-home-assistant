@@ -19,6 +19,17 @@
         },
         "create_entry": {
             "default": "[%key:common::config_flow::create_entry::authenticated%]"
+        },
+        "options": {
+            "step": {
+                "init": {
+                    "title": "API endpoint",
+                    "description": "Configure the TickTick-compatible API endpoint.",
+                    "data": {
+                        "api_endpoint": "API endpoint"
+                    }
+                }
+            }
         }
     }
 }

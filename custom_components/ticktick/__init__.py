@@ -12,7 +12,7 @@ from homeassistant.core import HomeAssistant, SupportsResponse
 from homeassistant.helpers import aiohttp_client
 
 from . import api
-from .const import DOMAIN
+from .const import CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT, DOMAIN
 from .coordinator import TickTickCoordinator
 from .service_handlers import (
     handle_complete_task,
@@ -53,7 +53,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: TickTickConfigEntry) -> 
     entry.runtime_data = api.AsyncConfigEntryAuth(aiohttp_session, session)
     access_token = await entry.runtime_data.async_get_access_token()
 
-    tickTickApiClient = TickTickAPIClient(access_token, aiohttp_session)
+    api_endpoint = entry.options.get(CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT)
+    tickTickApiClient = TickTickAPIClient(
+        access_token, aiohttp_session, api_endpoint
+    )
 
     await register_coordiantor(hass, tickTickApiClient, entry, access_token)
     await register_services(hass, tickTickApiClient)
