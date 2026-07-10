@@ -13,7 +13,9 @@ from .const import CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT, DOMAIN
 def _validate_api_endpoint(value: str) -> str:
     """Validate that an API endpoint uses HTTPS."""
     if not value.startswith("https://"):
-        raise vol.Invalid("API endpoint must use HTTPS")
+        raise vol.Invalid(
+            "API endpoint must use HTTPS protocol (e.g., https://api.example.com)"
+        )
     return value
 
 
