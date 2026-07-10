@@ -3,8 +3,6 @@
 import logging
 
 import voluptuous as vol
-from homeassistant.config_entries import ConfigEntry, OptionsFlow
-from homeassistant.core import callback
 from homeassistant.helpers import config_entry_oauth2_flow
 
 from .application_credentials import regionalize_implementation
@@ -40,14 +38,12 @@ class OAuth2FlowHandler(
             ),
         )
 
-    async def async_step_pick_implementation(self, user_input=None):
-        """Select credentials and apply the selected service endpoints."""
-        result = await super().async_step_pick_implementation(user_input)
-        if self.flow_impl is not None:
-            self.flow_impl = regionalize_implementation(
-                self.hass, self.flow_impl, self._region
-            )
-        return result
+    async def async_generate_authorize_url(self) -> str:
+        """Generate an authorize URL for the selected service."""
+        self.flow_impl = regionalize_implementation(
+            self.hass, self.flow_impl, self._region
+        )
+        return await super().async_generate_authorize_url()
 
     async def async_oauth_create_entry(self, data):
         """Create an entry with the selected region."""
