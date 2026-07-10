@@ -34,7 +34,7 @@ class OAuth2FlowHandler(
                 {
                     vol.Required(
                         CONF_API_ENDPOINT, default=DEFAULT_API_ENDPOINT
-                    ): str,
+                    ): vol.Url(),
                 }
             ),
         )
@@ -80,7 +80,7 @@ class OptionsFlowHandler(OptionsFlow):
                         default=self._config_entry.options.get(
                             CONF_API_ENDPOINT, DEFAULT_API_ENDPOINT
                         ),
-                    ): str,
+                    ): vol.Url(),
                 }
             ),
         )
