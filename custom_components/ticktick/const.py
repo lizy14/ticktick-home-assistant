@@ -23,7 +23,6 @@ REGIONS = {
     },
 }
 DEFAULT_REGION = REGION_TICKTICK
-API = ""
 
 # === Parameters === #
 PROJECT_ID = "projectId"
