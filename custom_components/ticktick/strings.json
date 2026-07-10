@@ -1,6 +1,13 @@
 {
     "config": {
         "step": {
+            "user": {
+                "title": "API endpoint",
+                "description": "Configure the TickTick-compatible API endpoint.",
+                "data": {
+                    "api_endpoint": "API endpoint"
+                }
+            },
             "pick_implementation": {
                 "title": "[%key:common::config_flow::title::oauth2_pick_implementation%]"
             }

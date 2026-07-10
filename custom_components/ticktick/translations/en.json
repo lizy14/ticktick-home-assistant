@@ -27,6 +27,13 @@
             }
         },
         "step": {
+            "user": {
+                "title": "API endpoint",
+                "description": "Configure the TickTick-compatible API endpoint.",
+                "data": {
+                    "api_endpoint": "API endpoint"
+                }
+            },
             "pick_implementation": {
                 "title": "Pick authentication method"
             }

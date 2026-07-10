@@ -17,6 +17,36 @@ class OAuth2FlowHandler(
 
     DOMAIN = DOMAIN
 
+    def __init__(self) -> None:
+        """Initialize the config flow."""
+        super().__init__()
+        self._api_endpoint = DEFAULT_API_ENDPOINT
+
+    async def async_step_user(self, user_input=None):
+        """Configure the API endpoint before authentication."""
+        if user_input is not None:
+            self._api_endpoint = user_input[CONF_API_ENDPOINT]
+            return await self.async_step_pick_implementation()
+
+        return self.async_show_form(
+            step_id="user",
+            data_schema=vol.Schema(
+                {
+                    vol.Required(
+                        CONF_API_ENDPOINT, default=DEFAULT_API_ENDPOINT
+                    ): str,
+                }
+            ),
+        )
+
+    async def async_oauth_create_entry(self, data):
+        """Create an entry with the selected API endpoint."""
+        return self.async_create_entry(
+            title=self.flow_impl.name,
+            data=data,
+            options={CONF_API_ENDPOINT: self._api_endpoint},
+        )
+
     @property
     def logger(self) -> logging.Logger:
         """Return logger."""
