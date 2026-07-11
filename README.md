@@ -17,7 +17,7 @@ Integration implements [TickTick Open API](https://developer.ticktick.com/docs#/
 3. Add this repository in HACS and download TickTick Integration via HACS
 4. In Settings → Devices & services, use the dotted menu to create new application credentials (`/config/application_credentials`).
 5. In Home Assistant's application credentials UI, select the matching service and enter its OAuth client ID and secret. TickTick and Dida365 credentials are not interchangeable.
-6. During integration setup, select the same service; it determines the OAuth and API endpoints.
+6. During integration setup, select the service chosen in step 1; it determines the OAuth and API endpoints.
 7. Your TickTick Lists should now each turn up as a todo list in Home Assistant.
 
 If you don’t want all of your lists to show up in the todo list app, you can disable selected lists in the entities list
