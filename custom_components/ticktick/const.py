@@ -8,14 +8,14 @@ REGION_DIDA365 = "dida365"
 
 REGIONS = {
     REGION_TICKTICK: {
-        "name": "TickTick",
+        "name": "TickTick (international)",
         "authorize_url": "https://ticktick.com/oauth/authorize",
         "token_url": "https://ticktick.com/oauth/token",
         "api_base_url": "https://api.ticktick.com/open/v1",
         "developer_url": "https://developer.ticktick.com/manage",
     },
     REGION_DIDA365: {
-        "name": "Dida365",
+        "name": "Dida365 (China region)",
         "authorize_url": "https://dida365.com/oauth/authorize",
         "token_url": "https://dida365.com/oauth/token",
         "api_base_url": "https://api.dida365.com/open/v1",
