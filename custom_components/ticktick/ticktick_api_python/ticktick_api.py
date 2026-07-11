@@ -9,6 +9,7 @@ from custom_components.ticktick.const import (
     GET_PROJECTS_WITH_TASKS,
     GET_TASK,
     UPDATE_TASK,
+    DEFAULT_API_BASE_URL,
 )
 
 from .models.project import Kind, Project
@@ -23,7 +24,7 @@ class TickTickAPIClient:
         self,
         access_token: str,
         session: ClientSession,
-        api_base_url: str,
+        api_base_url: str = DEFAULT_API_BASE_URL,
     ) -> None:
         """Initialize the TickTick API client."""
         self._headers = {"Authorization": f"Bearer {access_token}"}

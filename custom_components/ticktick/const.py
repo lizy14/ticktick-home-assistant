@@ -23,6 +23,7 @@ REGIONS = {
     },
 }
 DEFAULT_REGION = REGION_TICKTICK
+DEFAULT_API_BASE_URL = REGIONS[DEFAULT_REGION]["api_base_url"]
 
 # === Parameters === #
 PROJECT_ID = "projectId"
