@@ -33,11 +33,17 @@ class RegionalOAuth2Implementation(
             region_config["token_url"],
         )
         self._name = implementation.name
+        self._region = region
 
     @property
     def name(self) -> str:
         """Return the credential name."""
         return self._name
+
+    @property
+    def region(self) -> str:
+        """Return the selected region."""
+        return self._region
 
 
 async def async_get_authorization_server(hass: HomeAssistant) -> AuthorizationServer:
@@ -55,6 +61,9 @@ def regionalize_implementation(
     region: str,
 ) -> RegionalOAuth2Implementation:
     """Return an OAuth implementation for the selected region."""
-    if isinstance(implementation, RegionalOAuth2Implementation):
+    if (
+        isinstance(implementation, RegionalOAuth2Implementation)
+        and implementation.region == region
+    ):
         return implementation
     return RegionalOAuth2Implementation(hass, implementation, region)

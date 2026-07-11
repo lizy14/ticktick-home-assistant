@@ -53,7 +53,10 @@ class OAuth2FlowHandler(
 
     async def async_generate_authorize_url(self) -> str:
         """Generate an authorize URL for the selected service."""
-        if not isinstance(self.flow_impl, RegionalOAuth2Implementation):
+        if not (
+            isinstance(self.flow_impl, RegionalOAuth2Implementation)
+            and self.flow_impl.region == self._region
+        ):
             self.flow_impl = regionalize_implementation(
                 self.hass, self.flow_impl, self._region
             )
