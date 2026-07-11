@@ -55,4 +55,6 @@ def regionalize_implementation(
     region: str,
 ) -> RegionalOAuth2Implementation:
     """Return an OAuth implementation for the selected region."""
+    if isinstance(implementation, RegionalOAuth2Implementation):
+        return implementation
     return RegionalOAuth2Implementation(hass, implementation, region)
