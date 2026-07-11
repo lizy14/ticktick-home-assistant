@@ -6,10 +6,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.helpers import config_entry_oauth2_flow
 
-from .application_credentials import (
-    RegionalOAuth2Implementation,
-    regionalize_implementation,
-)
+from .application_credentials import regionalize_implementation
 from .const import CONF_REGION, DEFAULT_REGION, DOMAIN, REGIONS
 
 
@@ -53,13 +50,9 @@ class OAuth2FlowHandler(
 
     async def async_generate_authorize_url(self) -> str:
         """Generate an authorize URL for the selected service."""
-        if not (
-            isinstance(self.flow_impl, RegionalOAuth2Implementation)
-            and self.flow_impl.region == self._region
-        ):
-            self.flow_impl = regionalize_implementation(
-                self.hass, self.flow_impl, self._region
-            )
+        self.flow_impl = regionalize_implementation(
+            self.hass, self.flow_impl, self._region
+        )
         return await super().async_generate_authorize_url()
 
     async def async_oauth_create_entry(
